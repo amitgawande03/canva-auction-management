@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Amey Jodh",
+        "role": "Batsman",
+        "battingStyle": "Right-handed",
+        "bowlingStyle": "Right-arm medium",
+        "pclSeasons": [
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023"
+        ],
+        "basePrice": 15000,
+        "photo": "🏏"
+    },
+    {
+        "id": 2,
+        "name": "Chaitanya Tol",
+        "role": "Batsman",
+        "battingStyle": "Right-handed",
+        "bowlingStyle": "Right-arm medium",
+        "pclSeasons": [
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023"
+        ],
+        "basePrice": 15000,
+        "photo": "🏏"
+    },
+    {
+        "id": 3,
+        "name": "Sandesh Dubey",
+        "role": "Batsman",
+        "battingStyle": "Right-handed",
+        "bowlingStyle": "Right-arm medium",
+        "pclSeasons": [
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023"
+        ],
+        "basePrice": 15000,
+        "photo": "🏏"
+    }
+]
