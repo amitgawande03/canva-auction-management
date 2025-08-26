@@ -77,7 +77,7 @@
         <header class="bg-black/30 backdrop-blur-lg border-b border-white/20 p-4">
             <div class="max-w-7xl mx-auto flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <h1 class="text-2xl font-bold text-yellow-400">🏏 PC 2025 Auction</h1>
+                    <h1 class="text-2xl font-bold text-yellow-400">🏏 PCL 2025 Auction</h1>
                     <span id="userRole"
                         class="px-3 py-1 bg-yellow-500 text-black rounded-full text-sm font-medium"></span>
                 </div>
@@ -142,7 +142,30 @@
 
                 <!-- Player Queue -->
                 <div class="mt-6 bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                    <h3 class="text-xl font-bold mb-4 text-yellow-400">Players Available for Auction</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-yellow-400">Players Available for Auction</h3>
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <input type="text" id="playerSearch" placeholder="Search players..."
+                                    class="px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400 w-64"
+                                    oninput="filterPlayers()">
+                                <div class="absolute right-3 top-2.5 text-gray-400">🔍</div>
+                            </div>
+                            <select id="roleFilter" onchange="filterPlayers()"
+                                class="px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white">
+                                <option value="" class="bg-gray-800 text-white">All Roles</option>
+                                <option value="Batsman" class="bg-gray-800 text-white">Batsman</option>
+                                <option value="Bowler" class="bg-gray-800 text-white">Bowler</option>
+                                <option value="All-rounder" class="bg-gray-800 text-white">All-rounder</option>
+                                <option value="Wicket-keeper" class="bg-gray-800 text-white">Wicket-keeper</option>
+                            </select>
+                            <button onclick="clearFilters()"
+                                class="px-3 py-2 bg-gray-500 hover:bg-gray-600 rounded-lg text-sm transition-colors">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                    <div id="playerSearchResults" class="text-sm text-gray-400 mb-2 hidden"></div>
                     <div id="playerQueue" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <!-- Players will be populated here -->
                     </div>
@@ -276,6 +299,7 @@
         class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 w-full max-w-md border border-white/20">
             <h3 class="text-xl font-bold mb-4 text-yellow-400">Add New Player</h3>
+
             <div class="space-y-4 max-h-96 overflow-y-auto">
                 <input type="text" id="playerName" placeholder="Player Name"
                     class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400">
@@ -349,6 +373,91 @@
                     <button onclick="addPlayer()"
                         class="flex-1 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition-colors">Add</button>
                     <button onclick="closeAddPlayerModal()"
+                        class="flex-1 bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Player Modal -->
+    <div id="editPlayerModal"
+        class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 w-full max-w-md border border-white/20">
+            <h3 class="text-xl font-bold mb-4 text-yellow-400">Edit Player Details</h3>
+            <div class="space-y-4 max-h-96 overflow-y-auto">
+                <input type="text" id="editPlayerName" placeholder="Player Name"
+                    class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400">
+                <select id="editPlayerRole"
+                    class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white">
+                    <option value="Batsman" class="bg-gray-800 text-white">Batsman</option>
+                    <option value="Bowler" class="bg-gray-800 text-white">Bowler</option>
+                    <option value="All-rounder" class="bg-gray-800 text-white">All-rounder</option>
+                    <option value="Wicket-keeper" class="bg-gray-800 text-white">Wicket-keeper</option>
+                </select>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="number" id="editPlayerAge" placeholder="Age"
+                        class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400">
+                    <input type="text" id="editPlayerExperience" placeholder="Experience (e.g., 10 years)"
+                        class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400">
+                </div>
+                <select id="editPlayerBattingStyle"
+                    class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white">
+                    <option value="" class="bg-gray-800 text-white">Select Batting Style</option>
+                    <option value="Right-handed" class="bg-gray-800 text-white">Right-handed</option>
+                    <option value="Left-handed" class="bg-gray-800 text-white">Left-handed</option>
+                </select>
+                <select id="editPlayerBowlingStyle"
+                    class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white">
+                    <option value="" class="bg-gray-800 text-white">Select Bowling Style</option>
+                    <option value="Right-arm fast" class="bg-gray-800 text-white">Right-arm fast</option>
+                    <option value="Right-arm fast-medium" class="bg-gray-800 text-white">Right-arm fast-medium</option>
+                    <option value="Right-arm medium" class="bg-gray-800 text-white">Right-arm medium</option>
+                    <option value="Right-arm off-break" class="bg-gray-800 text-white">Right-arm off-break</option>
+                    <option value="Right-arm leg-break" class="bg-gray-800 text-white">Right-arm leg-break</option>
+                    <option value="Left-arm fast" class="bg-gray-800 text-white">Left-arm fast</option>
+                    <option value="Left-arm fast-medium" class="bg-gray-800 text-white">Left-arm fast-medium</option>
+                    <option value="Left-arm medium" class="bg-gray-800 text-white">Left-arm medium</option>
+                    <option value="Left-arm orthodox" class="bg-gray-800 text-white">Left-arm orthodox</option>
+                    <option value="Left-arm chinaman" class="bg-gray-800 text-white">Left-arm chinaman</option>
+                </select>
+                <div>
+                    <label class="block text-sm font-medium mb-2">PCL Seasons Played</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="editSeason2019" value="2019" class="mr-2"> 2019
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="editSeason2020" value="2020" class="mr-2"> 2020
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="editSeason2021" value="2021" class="mr-2"> 2021
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="editSeason2022" value="2022" class="mr-2"> 2022
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="editSeason2023" value="2023" class="mr-2"> 2023
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 2024
+                        </label>
+                    </div>
+                </div>
+                <input type="number" id="editBasePrice" placeholder="Base Price"
+                    class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Player Photo</label>
+                    <input type="file" id="editPlayerPhotoFile" accept="image/*"
+                        class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-500 file:text-black hover:file:bg-yellow-600">
+                    <p class="text-xs text-gray-400 mt-1">Or use emoji/text as photo</p>
+                    <input type="text" id="editPlayerPhoto" placeholder="Photo emoji or text (e.g., 🏏)"
+                        class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400 mt-2">
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="savePlayerEdit()"
+                        class="flex-1 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition-colors">Save
+                        Changes</button>
+                    <button onclick="closeEditPlayerModal()"
                         class="flex-1 bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors">Cancel</button>
                 </div>
             </div>
@@ -931,7 +1040,7 @@
         const defaultSettings = {
             maxTeams: 10,
             maxPlayersPerTeam: 15,
-            defaultBudget: 100000,
+            defaultBudget: 125000,
             bidIncrement: 1000,
             auctionName: 'Persistent Cricket League 2025'
         };
@@ -1012,6 +1121,8 @@
                                 <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
                                     <div><strong>Batting:</strong> ${currentPlayer.battingStyle || 'N/A'}</div>
                                     <div><strong>Bowling:</strong> ${currentPlayer.bowlingStyle || 'N/A'}</div>
+                                    <div><strong>PCL Runs:</strong> ${currentPlayer.runs || 'N/A'}</div>
+                                    <div><strong>PCL Wickets:</strong> ${currentPlayer.wickets || 'N/A'}</div>
                                     <div class="col-span-2"><strong>PCL Seasons:</strong> ${currentPlayer.pclSeasons ? currentPlayer.pclSeasons.join(', ') : 'N/A'}</div>
                                 </div>
                             </div>
@@ -1081,7 +1192,7 @@
 
         function renderTeamsOverview() {
             const teamsHtml = teams.map(team => {
-                const totalBudget = 100000;
+                const totalBudget = 125000;
                 const spent = totalBudget - team.budget;
                 const spentPercentage = ((spent / totalBudget) * 100).toFixed(1);
                 const remainingPercentage = ((team.budget / totalBudget) * 100).toFixed(1);
@@ -1113,20 +1224,134 @@
             document.getElementById('teamsOverview').innerHTML = teamsHtml;
         }
 
+        let filteredPlayers = [];
+
         function renderPlayerQueue() {
             const availablePlayers = players.filter(p => p.status === 'available');
-            const queueHtml = availablePlayers.map((player, index) => `
-                <div class="bg-white/5 rounded-lg p-4 border border-white/10 ${index === currentPlayerIndex ? 'ring-2 ring-yellow-400' : ''}">
-                    <h4 class="font-bold">${player.name}</h4>
-                    <p class="text-sm text-gray-300">${player.role}</p>
-                    <p class="text-sm">₹${player.basePrice.toLocaleString()}</p>
-                    <button onclick="setCurrentPlayer(${index})" class="mt-2 text-xs bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded">
-                        Select
+            filteredPlayers = availablePlayers; // Initialize filtered players
+
+            const queueHtml = availablePlayers.map((player, index) => {
+                const actualIndex = players.filter(p => p.status === 'available').findIndex(p => p.id === player.id);
+                return `
+                <div class="bg-white/5 rounded-lg p-4 border border-white/10 ${actualIndex === currentPlayerIndex ? 'ring-2 ring-yellow-400' : ''}" data-player-id="${player.id}">
+                    <div class="flex items-start space-x-3 mb-3">
+                        <div class="text-2xl">
+                            ${player.photo && player.photo.startsWith('data:') ?
+                        `<img src="${player.photo}" alt="${player.name}" class="w-8 h-8 rounded-full object-cover">` :
+                        (player.photo || '👤')
+                    }
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm">${player.name}</h4>
+                            <p class="text-xs text-gray-300">${player.role}</p>
+                            <p class="text-xs">₹${player.basePrice.toLocaleString()}</p>
+                            ${player.age ? `<p class="text-xs text-gray-400">Age: ${player.age}</p>` : ''}
+                            ${player.pclSeasons && player.pclSeasons.length > 0 ? `<p class="text-xs text-gray-400">PCL: ${player.pclSeasons.join(', ')}</p>` : ''}
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="setCurrentPlayerById(${player.id})" class="flex-1 text-xs bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded transition-colors">
+                            Select Next
+                        </button>
+                        <button onclick="startAuctionForPlayer(${player.id})" class="flex-1 text-xs bg-green-500 hover:bg-green-600 px-2 py-1 rounded transition-colors">
+                            Start Auction
                     </button>
                 </div>
-            `).join('');
+                </div>
+            `}).join('');
 
             document.getElementById('playerQueue').innerHTML = queueHtml;
+            updateSearchResults(availablePlayers.length, availablePlayers.length);
+        }
+
+        function filterPlayers() {
+            const searchTerm = document.getElementById('playerSearch').value.toLowerCase();
+            const roleFilter = document.getElementById('roleFilter').value;
+            const availablePlayers = players.filter(p => p.status === 'available');
+
+            filteredPlayers = availablePlayers.filter(player => {
+                const matchesSearch = !searchTerm ||
+                    player.name.toLowerCase().includes(searchTerm) ||
+                    player.role.toLowerCase().includes(searchTerm) ||
+                    (player.pclSeasons && player.pclSeasons.some(season => season.includes(searchTerm))) ||
+                    (player.battingStyle && player.battingStyle.toLowerCase().includes(searchTerm)) ||
+                    (player.bowlingStyle && player.bowlingStyle.toLowerCase().includes(searchTerm));
+
+                const matchesRole = !roleFilter || player.role === roleFilter;
+
+                return matchesSearch && matchesRole;
+            });
+
+            renderFilteredPlayers();
+            updateSearchResults(filteredPlayers.length, availablePlayers.length);
+        }
+
+        function renderFilteredPlayers() {
+            const queueHtml = filteredPlayers.map((player) => {
+                const actualIndex = players.filter(p => p.status === 'available').findIndex(p => p.id === player.id);
+                return `
+                <div class="bg-white/5 rounded-lg p-4 border border-white/10 ${actualIndex === currentPlayerIndex ? 'ring-2 ring-yellow-400' : ''}" data-player-id="${player.id}">
+                    <div class="flex items-start space-x-3 mb-3">
+                        <div class="text-2xl">
+                            ${player.photo && player.photo.startsWith('data:') ?
+                        `<img src="${player.photo}" alt="${player.name}" class="w-8 h-8 rounded-full object-cover">` :
+                        (player.photo || '👤')
+                    }
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm">${player.name}</h4>
+                            <p class="text-xs text-gray-300">${player.role}</p>
+                            <p class="text-xs">₹${player.basePrice.toLocaleString()}</p>
+                            ${player.age ? `<p class="text-xs text-gray-400">Age: ${player.age}</p>` : ''}
+                            ${player.pclSeasons && player.pclSeasons.length > 0 ? `<p class="text-xs text-gray-400">PCL: ${player.pclSeasons.join(', ')}</p>` : ''}
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="setCurrentPlayerById(${player.id})" class="flex-1 text-xs bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded transition-colors">
+                            Select Next
+                        </button>
+                        <button onclick="startAuctionForPlayer(${player.id})" class="flex-1 text-xs bg-green-500 hover:bg-green-600 px-2 py-1 rounded transition-colors">
+                            Start Auction
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+
+            document.getElementById('playerQueue').innerHTML = queueHtml;
+        }
+
+        function updateSearchResults(filtered, total) {
+            const resultsDiv = document.getElementById('playerSearchResults');
+            if (filtered < total) {
+                resultsDiv.textContent = `Showing ${filtered} of ${total} players`;
+                resultsDiv.classList.remove('hidden');
+            } else {
+                resultsDiv.classList.add('hidden');
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById('playerSearch').value = '';
+            document.getElementById('roleFilter').value = '';
+            filterPlayers();
+        }
+
+        function setCurrentPlayerById(playerId) {
+            const availablePlayers = players.filter(p => p.status === 'available');
+            const playerIndex = availablePlayers.findIndex(p => p.id === playerId);
+            if (playerIndex !== -1) {
+                currentPlayerIndex = playerIndex;
+                auctionActive = false;
+                currentBidder = null;
+                renderAuction();
+            }
+        }
+
+        function startAuctionForPlayer(playerId) {
+            setCurrentPlayerById(playerId);
+            setTimeout(() => {
+                startBidding();
+            }, 100);
         }
 
         function renderAllTeamsPlayers() {
@@ -1342,6 +1567,9 @@
                         <p class="text-sm text-green-400">Sold: ₹${player.currentBid.toLocaleString()}</p>
                         <p class="text-xs text-gray-400">To: ${teams.find(t => t.id === player.soldTo)?.name}</p>
                         <div class="flex space-x-2 mt-2">
+                            <button onclick="editPlayer(${player.id})" class="text-xs bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded">
+                                Edit
+                            </button>
                             <button onclick="unsoldPlayer(${player.id})" class="text-xs bg-orange-500 hover:bg-orange-600 px-2 py-1 rounded">
                                 Unsold
                             </button>
@@ -1350,9 +1578,14 @@
                             </button>
                         </div>
                     ` : `
-                        <button onclick="removePlayer(${player.id})" class="mt-2 text-xs bg-red-500 hover:bg-red-600 px-2 py-1 rounded">
+                        <div class="flex space-x-2 mt-2">
+                            <button onclick="editPlayer(${player.id})" class="text-xs bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded">
+                                Edit
+                            </button>
+                            <button onclick="removePlayer(${player.id})" class="text-xs bg-red-500 hover:bg-red-600 px-2 py-1 rounded">
                             Remove
                         </button>
+                        </div>
                     `}
                 </div>
             `).join('');
@@ -1371,7 +1604,7 @@
             document.getElementById('playerExperience').value = '';
             document.getElementById('playerBattingStyle').value = '';
             document.getElementById('playerBowlingStyle').value = '';
-            document.getElementById('basePrice').value = '5000';
+            document.getElementById('basePrice').value = '500';
             document.getElementById('playerPhoto').value = '';
             document.getElementById('playerPhotoFile').value = '';
 
@@ -1607,6 +1840,188 @@
             });
         }
 
+        // Edit player functionality
+        let currentEditingPlayerId = null;
+
+        function editPlayer(playerId) {
+            const player = players.find(p => p.id === playerId);
+            if (!player) return;
+
+            currentEditingPlayerId = playerId;
+
+            // Populate edit form with current player data
+            document.getElementById('editPlayerName').value = player.name || '';
+            document.getElementById('editPlayerRole').value = player.role || 'Batsman';
+            document.getElementById('editPlayerAge').value = player.age || '';
+            document.getElementById('editPlayerExperience').value = player.experience || '';
+            document.getElementById('editPlayerBattingStyle').value = player.battingStyle || '';
+            document.getElementById('editPlayerBowlingStyle').value = player.bowlingStyle || '';
+            document.getElementById('editBasePrice').value = player.basePrice || 5000;
+            document.getElementById('editPlayerPhoto').value = (player.photo && !player.photo.startsWith('data:')) ? player.photo : '';
+
+            // Set PCL seasons checkboxes
+            ['2019', '2020', '2021', '2022', '2023', '2024'].forEach(year => {
+                const checkbox = document.getElementById(`editSeason${year}`);
+                checkbox.checked = player.pclSeasons && player.pclSeasons.includes(year);
+            });
+
+            // Show edit modal
+            document.getElementById('editPlayerModal').classList.remove('hidden');
+        }
+
+        function closeEditPlayerModal() {
+            document.getElementById('editPlayerModal').classList.add('hidden');
+            currentEditingPlayerId = null;
+
+            // Clear form
+            document.getElementById('editPlayerName').value = '';
+            document.getElementById('editPlayerAge').value = '';
+            document.getElementById('editPlayerExperience').value = '';
+            document.getElementById('editPlayerBattingStyle').value = '';
+            document.getElementById('editPlayerBowlingStyle').value = '';
+            document.getElementById('editBasePrice').value = '';
+            document.getElementById('editPlayerPhoto').value = '';
+            document.getElementById('editPlayerPhotoFile').value = '';
+
+            // Clear checkboxes
+            ['2019', '2020', '2021', '2022', '2023', '2024'].forEach(year => {
+                document.getElementById(`editSeason${year}`).checked = false;
+            });
+        }
+
+        const savePlayerEdit = debounce(async function () {
+            if (isProcessing || !currentEditingPlayerId) return;
+
+            const player = players.find(p => p.id === currentEditingPlayerId);
+            if (!player) return;
+
+            const name = document.getElementById('editPlayerName').value;
+            const role = document.getElementById('editPlayerRole').value;
+            const age = parseInt(document.getElementById('editPlayerAge').value);
+            const experience = document.getElementById('editPlayerExperience').value;
+            const battingStyle = document.getElementById('editPlayerBattingStyle').value;
+            const bowlingStyle = document.getElementById('editPlayerBowlingStyle').value;
+            const basePrice = parseInt(document.getElementById('editBasePrice').value);
+            const photoFile = document.getElementById('editPlayerPhotoFile').files[0];
+            const photoText = document.getElementById('editPlayerPhoto').value;
+
+            // Get selected PCL seasons
+            const pclSeasons = [];
+            ['2019', '2020', '2021', '2022', '2023', '2024'].forEach(year => {
+                if (document.getElementById(`editSeason${year}`).checked) {
+                    pclSeasons.push(year);
+                }
+            });
+
+            if (!name || !basePrice) {
+                alert('Please fill required fields (Name and Base Price)');
+                return;
+            }
+
+            showLoading(`Updating ${name}'s details...`);
+
+            try {
+                // Handle photo upload
+                if (photoFile) {
+                    const reader = new FileReader();
+                    reader.onload = async function (e) {
+                        // Update player data
+                        player.name = name;
+                        player.role = role;
+                        player.age = age || null;
+                        player.experience = experience || null;
+                        player.battingStyle = battingStyle || null;
+                        player.bowlingStyle = bowlingStyle || null;
+                        player.pclSeasons = pclSeasons;
+                        player.basePrice = basePrice;
+                        player.photo = e.target.result;
+
+                        // If player is sold, update team roster as well
+                        if (player.status === 'sold' && player.soldTo) {
+                            const team = teams.find(t => t.id === player.soldTo);
+                            if (team) {
+                                const teamPlayerIndex = team.players.findIndex(p => p.id === player.id);
+                                if (teamPlayerIndex !== -1) {
+                                    team.players[teamPlayerIndex] = { ...player };
+                                }
+                            }
+                        }
+
+                        // Save to localStorage and update files
+                        saveToLocalStorage();
+                        await updateProjectJSONFiles();
+
+                        closeEditPlayerModal();
+                        renderAll();
+                        hideLoading();
+
+                        // Show success message
+                        const successMsg = document.createElement('div');
+                        successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                        successMsg.textContent = `${name}'s details updated successfully!`;
+                        document.body.appendChild(successMsg);
+
+                        setTimeout(() => {
+                            if (successMsg.parentNode) {
+                                successMsg.parentNode.removeChild(successMsg);
+                            }
+                        }, 3000);
+                    };
+                    reader.readAsDataURL(photoFile);
+                } else {
+                    // Update player data without photo change
+                    player.name = name;
+                    player.role = role;
+                    player.age = age || null;
+                    player.experience = experience || null;
+                    player.battingStyle = battingStyle || null;
+                    player.bowlingStyle = bowlingStyle || null;
+                    player.pclSeasons = pclSeasons;
+                    player.basePrice = basePrice;
+
+                    // Update photo only if text is provided
+                    if (photoText) {
+                        player.photo = photoText;
+                    }
+
+                    // If player is sold, update team roster as well
+                    if (player.status === 'sold' && player.soldTo) {
+                        const team = teams.find(t => t.id === player.soldTo);
+                        if (team) {
+                            const teamPlayerIndex = team.players.findIndex(p => p.id === player.id);
+                            if (teamPlayerIndex !== -1) {
+                                team.players[teamPlayerIndex] = { ...player };
+                            }
+                        }
+                    }
+
+                    // Save to localStorage and update files
+                    saveToLocalStorage();
+                    await updateProjectJSONFiles();
+
+                    closeEditPlayerModal();
+                    renderAll();
+                    hideLoading();
+
+                    // Show success message
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                    successMsg.textContent = `${name}'s details updated successfully!`;
+                    document.body.appendChild(successMsg);
+
+                    setTimeout(() => {
+                        if (successMsg.parentNode) {
+                            successMsg.parentNode.removeChild(successMsg);
+                        }
+                    }, 3000);
+                }
+            } catch (error) {
+                hideLoading();
+                console.error('Error updating player:', error);
+                alert('Error occurred while updating player. Please try again.');
+            }
+        }, 500);
+
         // Initialize app
         document.addEventListener('DOMContentLoaded', function () {
             // Load saved data on startup
@@ -1628,7 +2043,7 @@
             document.getElementById('password').value = 'admin123';
         });
     </script>
-    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9737f6eb363b2e2e',t:'MTc1NTkyNDM2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'97532aefe6269373',t:'MTc1NjIwOTYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
 </body>
 
 </html>
