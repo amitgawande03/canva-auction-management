@@ -299,7 +299,6 @@
         class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 w-full max-w-md border border-white/20">
             <h3 class="text-xl font-bold mb-4 text-yellow-400">Add New Player</h3>
-
             <div class="space-y-4 max-h-96 overflow-y-auto">
                 <input type="text" id="playerName" placeholder="Player Name"
                     class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400">
@@ -340,22 +339,25 @@
                     <label class="block text-sm font-medium mb-2">PCL Seasons Played</label>
                     <div class="grid grid-cols-3 gap-2">
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2019" value="2019" class="mr-2"> 2019
+                            <input type="checkbox" id="season2019" value="2019" class="mr-2"> 1
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2020" value="2020" class="mr-2"> 2020
+                            <input type="checkbox" id="season2020" value="2020" class="mr-2"> 2
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2021" value="2021" class="mr-2"> 2021
+                            <input type="checkbox" id="season2021" value="2021" class="mr-2"> 3
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2022" value="2022" class="mr-2"> 2022
+                            <input type="checkbox" id="season2022" value="2022" class="mr-2"> 4
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2023" value="2023" class="mr-2"> 2023
+                            <input type="checkbox" id="season2023" value="2023" class="mr-2"> 5
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 2024
+                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 6
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 7
                         </label>
                     </div>
                 </div>
@@ -424,22 +426,25 @@
                     <label class="block text-sm font-medium mb-2">PCL Seasons Played</label>
                     <div class="grid grid-cols-3 gap-2">
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2019" value="2019" class="mr-2"> 2019
+                            <input type="checkbox" id="editSeason2019" value="2019" class="mr-2"> 1
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2020" value="2020" class="mr-2"> 2020
+                            <input type="checkbox" id="editSeason2020" value="2020" class="mr-2"> 2
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2021" value="2021" class="mr-2"> 2021
+                            <input type="checkbox" id="editSeason2021" value="2021" class="mr-2"> 3
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2022" value="2022" class="mr-2"> 2022
+                            <input type="checkbox" id="editSeason2022" value="2022" class="mr-2"> 4
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2023" value="2023" class="mr-2"> 2023
+                            <input type="checkbox" id="editSeason2023" value="2023" class="mr-2"> 5
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 2024
+                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 6
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 7
                         </label>
                     </div>
                 </div>
@@ -1567,9 +1572,6 @@
                         <p class="text-sm text-green-400">Sold: ₹${player.currentBid.toLocaleString()}</p>
                         <p class="text-xs text-gray-400">To: ${teams.find(t => t.id === player.soldTo)?.name}</p>
                         <div class="flex space-x-2 mt-2">
-                            <button onclick="editPlayer(${player.id})" class="text-xs bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded">
-                                Edit
-                            </button>
                             <button onclick="unsoldPlayer(${player.id})" class="text-xs bg-orange-500 hover:bg-orange-600 px-2 py-1 rounded">
                                 Unsold
                             </button>
