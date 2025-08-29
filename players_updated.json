@@ -1,0 +1,21 @@
+[
+  {
+    "id": 2,
+    "name": "Rohit Sharma",
+    "role": "Batsman",
+    "age": 37,
+    "nationality": "Indian",
+    "experience": "17 years",
+    "battingStyle": "Right-handed",
+    "bowlingStyle": "Right-arm off-break",
+    "pclSeasons": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023"
+    ],
+    "basePrice": 15000,
+    "photo": "🏏"
+  }
+]

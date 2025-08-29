@@ -353,25 +353,22 @@
                     <label class="block text-sm font-medium mb-2">PCL Seasons Played</label>
                     <div class="grid grid-cols-3 gap-2">
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2019" value="2019" class="mr-2"> 1
+                            <input type="checkbox" id="season2019" value="2019" class="mr-2"> 2019
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2020" value="2020" class="mr-2"> 2
+                            <input type="checkbox" id="season2020" value="2020" class="mr-2"> 2020
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2021" value="2021" class="mr-2"> 3
+                            <input type="checkbox" id="season2021" value="2021" class="mr-2"> 2021
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2022" value="2022" class="mr-2"> 4
+                            <input type="checkbox" id="season2022" value="2022" class="mr-2"> 2022
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2023" value="2023" class="mr-2"> 5
+                            <input type="checkbox" id="season2023" value="2023" class="mr-2"> 2023
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 6
-                        </label>
-                        <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 7
+                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 2024
                         </label>
                     </div>
                 </div>
@@ -440,25 +437,22 @@
                     <label class="block text-sm font-medium mb-2">PCL Seasons Played</label>
                     <div class="grid grid-cols-3 gap-2">
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2019" value="2019" class="mr-2"> 1
+                            <input type="checkbox" id="editSeason2019" value="2019" class="mr-2"> 2019
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2020" value="2020" class="mr-2"> 2
+                            <input type="checkbox" id="editSeason2020" value="2020" class="mr-2"> 2020
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2021" value="2021" class="mr-2"> 3
+                            <input type="checkbox" id="editSeason2021" value="2021" class="mr-2"> 2021
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2022" value="2022" class="mr-2"> 4
+                            <input type="checkbox" id="editSeason2022" value="2022" class="mr-2"> 2022
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2023" value="2023" class="mr-2"> 5
+                            <input type="checkbox" id="editSeason2023" value="2023" class="mr-2"> 2023
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 6
-                        </label>
-                        <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 7
+                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 2024
                         </label>
                     </div>
                 </div>
@@ -809,7 +803,7 @@
                 {
                     "id": 1,
                     "name": "Mumbai Warriors",
-                    "budget": 75000,
+                    "budget": 100000,
                     "color": "bg-blue-600",
                     "owner": "Owner 1",
                     "players": []
@@ -817,7 +811,7 @@
                 {
                     "id": 2,
                     "name": "Delhi Capitals",
-                    "budget": 75000,
+                    "budget": 100000,
                     "color": "bg-red-600",
                     "owner": "Owner 2",
                     "players": []
@@ -971,6 +965,9 @@
                         id: player.id,
                         name: player.name,
                         role: player.role,
+                        age: player.age,
+                        nationality: player.nationality,
+                        experience: player.experience,
                         battingStyle: player.battingStyle,
                         bowlingStyle: player.bowlingStyle,
                         pclSeasons: player.pclSeasons,
@@ -991,6 +988,9 @@
                             id: player.id,
                             name: player.name,
                             role: player.role,
+                            age: player.age,
+                            nationality: player.nationality,
+                            experience: player.experience,
                             battingStyle: player.battingStyle,
                             bowlingStyle: player.bowlingStyle,
                             pclSeasons: player.pclSeasons,
@@ -1087,7 +1087,7 @@
         const defaultSettings = {
             maxTeams: 10,
             maxPlayersPerTeam: 15,
-            defaultBudget: 75000,
+            defaultBudget: 100000,
             bidIncrement: 1000,
             auctionName: 'Persistent Cricket League 2025'
         };
@@ -1242,10 +1242,10 @@
                                 <p class="text-lg">${currentPlayer.role}</p>
                                 <p class="text-sm">Base Price: ₹${currentPlayer.basePrice.toLocaleString()}</p>
                                 <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                                    <div><strong>Age:</strong> ${currentPlayer.age || 'N/A'}</div>
+                                    <div><strong>Experience:</strong> ${currentPlayer.experience || 'N/A'}</div>
                                     <div><strong>Batting:</strong> ${currentPlayer.battingStyle || 'N/A'}</div>
                                     <div><strong>Bowling:</strong> ${currentPlayer.bowlingStyle || 'N/A'}</div>
-                                    <div><strong>PCL Runs:</strong> ${currentPlayer.runs || 'N/A'}</div>
-                                    <div><strong>PCL Wickets:</strong> ${currentPlayer.wickets || 'N/A'}</div>
                                     <div class="col-span-2"><strong>PCL Seasons:</strong> ${currentPlayer.pclSeasons ? currentPlayer.pclSeasons.join(', ') : 'N/A'}</div>
                                 </div>
                             </div>
@@ -1399,8 +1399,8 @@
                         </button>
                         <button onclick="startAuctionForPlayer(${player.id})" class="flex-1 text-xs bg-green-500 hover:bg-green-600 px-2 py-1 rounded transition-colors">
                             Start Auction
-                    </button>
-                </div>
+                        </button>
+                    </div>
                 </div>
             `}).join('');
 
@@ -1701,8 +1701,8 @@
                                 Edit
                             </button>
                             <button onclick="removePlayer(${player.id})" class="text-xs bg-red-500 hover:bg-red-600 px-2 py-1 rounded">
-                            Remove
-                        </button>
+                                Remove
+                            </button>
                         </div>
                     `}
                 </div>
@@ -1722,7 +1722,7 @@
             document.getElementById('playerExperience').value = '';
             document.getElementById('playerBattingStyle').value = '';
             document.getElementById('playerBowlingStyle').value = '';
-            document.getElementById('basePrice').value = '500';
+            document.getElementById('basePrice').value = '5000';
             document.getElementById('playerPhoto').value = '';
             document.getElementById('playerPhotoFile').value = '';
 
@@ -1735,6 +1735,8 @@
         function addPlayer() {
             const name = document.getElementById('playerName').value;
             const role = document.getElementById('playerRole').value;
+            const age = parseInt(document.getElementById('playerAge').value);
+            const experience = document.getElementById('playerExperience').value;
             const battingStyle = document.getElementById('playerBattingStyle').value;
             const bowlingStyle = document.getElementById('playerBowlingStyle').value;
             const basePrice = parseInt(document.getElementById('basePrice').value);
@@ -1764,6 +1766,8 @@
                             id: Date.now(),
                             name,
                             role,
+                            age: age || null,
+                            experience: experience || null,
                             battingStyle: battingStyle || null,
                             bowlingStyle: bowlingStyle || null,
                             pclSeasons: pclSeasons,
@@ -1797,6 +1801,8 @@
                         id: Date.now(),
                         name,
                         role,
+                        age: age || null,
+                        experience: experience || null,
                         battingStyle: battingStyle || null,
                         bowlingStyle: bowlingStyle || null,
                         pclSeasons: pclSeasons,
@@ -1858,8 +1864,8 @@
                 <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 ${!isEligible ? 'opacity-75 border-red-500/30' : ''}">
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center">
-                        <div class="w-4 h-4 ${team.color} rounded-full mr-3"></div>
-                        <h3 class="text-xl font-bold">${team.name}</h3>
+                            <div class="w-4 h-4 ${team.color} rounded-full mr-3"></div>
+                            <h3 class="text-xl font-bold">${team.name}</h3>
                             ${!isEligible ? '<span class="text-xs text-red-400 ml-2 px-2 py-1 bg-red-500/20 rounded">Ineligible</span>' : ''}
                         </div>
                         <div class="text-right text-sm">
@@ -1908,12 +1914,12 @@
                                                          <span style="display:none;">${player.photo && !player.photo.includes('/') && !player.photo.includes('.') ? player.photo : '👤'}</span>` :
                             `<span>${player.photo || '👤'}</span>`
                         }
-                            </div>
+                                                </div>
                                                 <span class="font-medium">${player.name || 'Unknown Player'}</span>
                                                 ${player.age ? `<span class="text-xs text-gray-400">(${player.age}y)</span>` : ''}
-                    </div>
+                                            </div>
                                             <span class="text-green-400 font-bold">₹${(player.soldPrice || player.currentBid || 0).toLocaleString()}</span>
-                </div>
+                                        </div>
                                     `).join('')}
                                 </div>
                             </div>
@@ -1964,7 +1970,7 @@
 
                 teams.forEach(team => {
                     team.players = [];
-                    team.budget = 75000;
+                    team.budget = 100000;
                 });
 
                 currentPlayerIndex = 0;
