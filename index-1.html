@@ -80,23 +80,10 @@
                     <h1 class="text-2xl font-bold text-yellow-400">🏏 PC 2025 Auction</h1>
                     <span id="userRole"
                         class="px-3 py-1 bg-yellow-500 text-black rounded-full text-sm font-medium"></span>
-                    <div id="viewerInfo" class="hidden text-xs text-green-400 bg-green-500/20 px-3 py-1 rounded-full">
-                        🔴 Live Updates Every 2s
-                    </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div id="viewerUrl" class="hidden text-xs text-gray-300">
-                        <span class="text-yellow-400">Viewer URL:</span>
-                        <code class="bg-black/30 px-2 py-1 rounded text-blue-300" onclick="copyViewerUrl()"
-                            style="cursor: pointer;" title="Click to copy">
-                            Viewer Page
-                        </code>
-                    </div>
-                    <button onclick="logout()"
-                        class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-colors">
-                        Logout
-                    </button>
-                </div>
+                <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-colors">
+                    Logout
+                </button>
             </div>
         </header>
 
@@ -353,25 +340,22 @@
                     <label class="block text-sm font-medium mb-2">PCL Seasons Played</label>
                     <div class="grid grid-cols-3 gap-2">
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2019" value="2019" class="mr-2"> 1
+                            <input type="checkbox" id="season2019" value="2019" class="mr-2"> 2019
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2020" value="2020" class="mr-2"> 2
+                            <input type="checkbox" id="season2020" value="2020" class="mr-2"> 2020
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2021" value="2021" class="mr-2"> 3
+                            <input type="checkbox" id="season2021" value="2021" class="mr-2"> 2021
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2022" value="2022" class="mr-2"> 4
+                            <input type="checkbox" id="season2022" value="2022" class="mr-2"> 2022
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2023" value="2023" class="mr-2"> 5
+                            <input type="checkbox" id="season2023" value="2023" class="mr-2"> 2023
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 6
-                        </label>
-                        <label class="flex items-center text-sm">
-                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 7
+                            <input type="checkbox" id="season2024" value="2024" class="mr-2"> 2024
                         </label>
                     </div>
                 </div>
@@ -440,25 +424,22 @@
                     <label class="block text-sm font-medium mb-2">PCL Seasons Played</label>
                     <div class="grid grid-cols-3 gap-2">
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2019" value="2019" class="mr-2"> 1
+                            <input type="checkbox" id="editSeason2019" value="2019" class="mr-2"> 2019
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2020" value="2020" class="mr-2"> 2
+                            <input type="checkbox" id="editSeason2020" value="2020" class="mr-2"> 2020
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2021" value="2021" class="mr-2"> 3
+                            <input type="checkbox" id="editSeason2021" value="2021" class="mr-2"> 2021
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2022" value="2022" class="mr-2"> 4
+                            <input type="checkbox" id="editSeason2022" value="2022" class="mr-2"> 2022
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2023" value="2023" class="mr-2"> 5
+                            <input type="checkbox" id="editSeason2023" value="2023" class="mr-2"> 2023
                         </label>
                         <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 6
-                        </label>
-                        <label class="flex items-center text-sm">
-                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 7
+                            <input type="checkbox" id="editSeason2024" value="2024" class="mr-2"> 2024
                         </label>
                     </div>
                 </div>
@@ -530,23 +511,16 @@
 
         // Data persistence functions
         function saveToLocalStorage() {
-            try {
-                const data = {
-                    teams: teams,
-                    players: players,
-                    currentPlayerIndex: currentPlayerIndex,
-                    auctionActive: auctionActive,
-                    currentBid: currentBid,
-                    currentBidder: currentBidder,
-                    timestamp: new Date().toISOString()
-                };
-                localStorage.setItem('auctionData', JSON.stringify(data));
-                console.log('Data saved successfully at:', new Date().toLocaleTimeString());
-                return true;
-            } catch (error) {
-                console.error('Error saving to localStorage:', error);
-                return false;
-            }
+            const data = {
+                teams: teams,
+                players: players,
+                currentPlayerIndex: currentPlayerIndex,
+                auctionActive: auctionActive,
+                currentBid: currentBid,
+                currentBidder: currentBidder,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('auctionData', JSON.stringify(data));
         }
 
         // Update JSON files in project path (async for better performance)
@@ -616,41 +590,20 @@
         }
 
         function loadFromLocalStorage() {
-            try {
-                const savedData = localStorage.getItem('auctionData');
-                if (savedData) {
+            const savedData = localStorage.getItem('auctionData');
+            if (savedData) {
+                try {
                     const data = JSON.parse(savedData);
-
-                    // Validate and load data with proper error handling
-                    if (data.teams && Array.isArray(data.teams)) {
-                        teams = data.teams.map(team => ({
-                            ...team,
-                            players: Array.isArray(team.players) ? team.players : []
-                        }));
-                        console.log('Teams loaded:', teams.length);
-                    }
-
-                    if (data.players && Array.isArray(data.players)) {
-                        players = data.players;
-                        console.log('Players loaded:', players.length);
-                    }
-
-                    // Load auction state
+                    teams = data.teams || teams;
+                    players = data.players || players;
                     currentPlayerIndex = data.currentPlayerIndex || 0;
                     auctionActive = data.auctionActive || false;
                     currentBid = data.currentBid || 0;
                     currentBidder = data.currentBidder || null;
-
-                    console.log('Data loaded from localStorage at:', new Date().toLocaleTimeString());
-                    console.log('Auction state - Index:', currentPlayerIndex, 'Active:', auctionActive);
-
-                    return true;
+                    console.log('Data loaded from localStorage');
+                } catch (error) {
+                    console.error('Error loading data from localStorage:', error);
                 }
-                console.log('No saved data found in localStorage');
-                return false;
-            } catch (error) {
-                console.error('Error loading data from localStorage:', error);
-                return false;
             }
         }
 
@@ -809,7 +762,7 @@
                 {
                     "id": 1,
                     "name": "Mumbai Warriors",
-                    "budget": 75000,
+                    "budget": 100000,
                     "color": "bg-blue-600",
                     "owner": "Owner 1",
                     "players": []
@@ -817,7 +770,7 @@
                 {
                     "id": 2,
                     "name": "Delhi Capitals",
-                    "budget": 75000,
+                    "budget": 100000,
                     "color": "bg-red-600",
                     "owner": "Owner 2",
                     "players": []
@@ -971,6 +924,9 @@
                         id: player.id,
                         name: player.name,
                         role: player.role,
+                        age: player.age,
+                        nationality: player.nationality,
+                        experience: player.experience,
                         battingStyle: player.battingStyle,
                         bowlingStyle: player.bowlingStyle,
                         pclSeasons: player.pclSeasons,
@@ -991,6 +947,9 @@
                             id: player.id,
                             name: player.name,
                             role: player.role,
+                            age: player.age,
+                            nationality: player.nationality,
+                            experience: player.experience,
                             battingStyle: player.battingStyle,
                             bowlingStyle: player.bowlingStyle,
                             pclSeasons: player.pclSeasons,
@@ -1058,12 +1017,12 @@
 
         // Default fallback data (used if JSON files are not loaded)
         const defaultTeams = [
-            { id: 1, name: 'Mumbai Warriors', budget: 75000, players: [], color: 'bg-blue-600' },
-            { id: 2, name: 'Delhi Capitals', budget: 75000, players: [], color: 'bg-red-600' },
-            { id: 3, name: 'Chennai Kings', budget: 75000, players: [], color: 'bg-yellow-600' },
-            { id: 4, name: 'Kolkata Knights', budget: 75000, players: [], color: 'bg-purple-600' },
-            { id: 5, name: 'Bangalore Royals', budget: 75000, players: [], color: 'bg-green-600' },
-            { id: 6, name: 'Hyderabad Titans', budget: 75000, players: [], color: 'bg-orange-600' }
+            { id: 1, name: 'Mumbai Warriors', budget: 100000, players: [], color: 'bg-blue-600' },
+            { id: 2, name: 'Delhi Capitals', budget: 100000, players: [], color: 'bg-red-600' },
+            { id: 3, name: 'Chennai Kings', budget: 100000, players: [], color: 'bg-yellow-600' },
+            { id: 4, name: 'Kolkata Knights', budget: 100000, players: [], color: 'bg-purple-600' },
+            { id: 5, name: 'Bangalore Royals', budget: 100000, players: [], color: 'bg-green-600' },
+            { id: 6, name: 'Hyderabad Titans', budget: 100000, players: [], color: 'bg-orange-600' }
         ];
 
         const defaultPlayers = [
@@ -1087,80 +1046,10 @@
         const defaultSettings = {
             maxTeams: 10,
             maxPlayersPerTeam: 15,
-            defaultBudget: 75000,
+            defaultBudget: 100000,
             bidIncrement: 1000,
             auctionName: 'Persistent Cricket League 2025'
         };
-
-        // Copy viewer URL to clipboard
-        function copyViewerUrl() {
-            const url = `${window.location.origin}${window.location.pathname}?view=teams`;
-            navigator.clipboard.writeText(url).then(() => {
-                // Show success message
-                const successMsg = document.createElement('div');
-                successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
-                successMsg.textContent = 'Viewer URL copied to clipboard!';
-                document.body.appendChild(successMsg);
-
-                setTimeout(() => {
-                    if (successMsg.parentNode) {
-                        successMsg.parentNode.removeChild(successMsg);
-                    }
-                }, 2000);
-            });
-        }
-
-        // Check for viewer mode
-        function checkViewerMode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('view') === 'teams') {
-                // Direct viewer mode - skip login
-                currentUser = 'viewer';
-                currentRole = 'viewer';
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('mainApp').classList.remove('hidden');
-                document.getElementById('userRole').textContent = 'Live Viewer';
-                document.getElementById('viewerInfo').classList.remove('hidden');
-
-                // Hide admin tabs and logout for viewer
-                document.querySelector('[data-tab="auction"]').style.display = 'none';
-                document.querySelector('[data-tab="players"]').style.display = 'none';
-                document.querySelector('[data-tab="settings"]').style.display = 'none';
-                document.querySelector('button[onclick="logout()"]').style.display = 'none';
-
-                showTab('teams');
-                startViewerAutoRefresh();
-                return true;
-            }
-            return false;
-        }
-
-        // Auto-refresh for viewer mode with enhanced data loading
-        function startViewerAutoRefresh() {
-            setInterval(() => {
-                if (currentRole === 'viewer') {
-                    console.log('Refreshing viewer data at:', new Date().toLocaleTimeString());
-
-                    // Force reload from localStorage
-                    const dataLoaded = loadFromLocalStorage();
-
-                    if (dataLoaded) {
-                        console.log('Data refreshed - Teams:', teams.length, 'Players:', players.length);
-                        renderTeams();
-                    } else {
-                        console.log('No data found, using defaults');
-                        // If no data, ensure we have defaults
-                        if (teams.length === 0) {
-                            teams = [...defaultTeams];
-                        }
-                        if (players.length === 0) {
-                            players = [...defaultPlayers];
-                        }
-                        renderTeams();
-                    }
-                }
-            }, 2000); // Refresh every 2 seconds
-        }
 
         // Login functionality
         function login() {
@@ -1182,11 +1071,6 @@
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('hidden');
                 document.getElementById('userRole').textContent = user.name || user.role;
-
-                // Show viewer URL for admin users
-                if (user.role === 'admin') {
-                    document.getElementById('viewerUrl').classList.remove('hidden');
-                }
 
                 showTab('auction');
                 renderAll();
@@ -1229,12 +1113,11 @@
                 const currentPlayer = availablePlayers[currentPlayerIndex];
                 document.getElementById('currentPlayerCard').innerHTML = `
                     <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-black rounded-xl p-6 mb-4">
-                        <div class="flex items-start space-x-6 mb-4">
-                            <div class="flex-shrink-0">
-                                ${currentPlayer.photo && (currentPlayer.photo.startsWith('data:') || currentPlayer.photo.includes('/') || currentPlayer.photo.includes('.')) ?
-                        `<img src="${currentPlayer.photo}" alt="${currentPlayer.name}" class="w-40 h-40 rounded-xl object-cover border-4 border-white shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                     <div class="w-40 h-40 rounded-xl bg-white/20 items-center justify-center text-8xl border-4 border-white shadow-lg" style="display:none;">👤</div>` :
-                        `<div class="w-40 h-40 rounded-xl bg-white/20 flex items-center justify-center text-8xl border-4 border-white shadow-lg">${currentPlayer.photo || '👤'}</div>`
+                        <div class="flex items-start space-x-4 mb-4">
+                            <div class="text-6xl">
+                                ${currentPlayer.photo && currentPlayer.photo.startsWith('data:') ?
+                        `<img src="${currentPlayer.photo}" alt="${currentPlayer.name}" class="w-16 h-16 rounded-full object-cover">` :
+                        (currentPlayer.photo || '👤')
                     }
                             </div>
                             <div class="flex-1">
@@ -1242,10 +1125,10 @@
                                 <p class="text-lg">${currentPlayer.role}</p>
                                 <p class="text-sm">Base Price: ₹${currentPlayer.basePrice.toLocaleString()}</p>
                                 <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                                    <div><strong>Age:</strong> ${currentPlayer.age || 'N/A'}</div>
+                                    <div><strong>Experience:</strong> ${currentPlayer.experience || 'N/A'}</div>
                                     <div><strong>Batting:</strong> ${currentPlayer.battingStyle || 'N/A'}</div>
                                     <div><strong>Bowling:</strong> ${currentPlayer.bowlingStyle || 'N/A'}</div>
-                                    <div><strong>PCL Runs:</strong> ${currentPlayer.runs || 'N/A'}</div>
-                                    <div><strong>PCL Wickets:</strong> ${currentPlayer.wickets || 'N/A'}</div>
                                     <div class="col-span-2"><strong>PCL Seasons:</strong> ${currentPlayer.pclSeasons ? currentPlayer.pclSeasons.join(', ') : 'N/A'}</div>
                                 </div>
                             </div>
@@ -1273,13 +1156,11 @@
                                 <label class="block text-sm font-medium mb-2">Select Team</label>
                                 <select id="biddingTeam" class="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white">
                                     <option value="" class="bg-gray-800 text-white">Select Team</option>
-                                    ${teams.map(team => {
-                        const isEligible = team.budget >= Math.max(currentPlayer.basePrice, 500) && team.budget > 0;
-                        return `
-                                        <option value="${team.id}" class="bg-gray-800 text-white" ${!isEligible ? 'disabled' : ''}>
-                                            ${team.name} (₹${team.budget.toLocaleString()}) ${!isEligible ? '- Ineligible' : ''}
+                                    ${teams.map(team => `
+                                        <option value="${team.id}" class="bg-gray-800 text-white" ${team.budget < currentPlayer.basePrice ? 'disabled' : ''}>
+                                            ${team.name} (₹${team.budget.toLocaleString()})
                                         </option>
-                                    `}).join('')}
+                                    `).join('')}
                                 </select>
                             </div>
                             <div>
@@ -1317,27 +1198,21 @@
 
         function renderTeamsOverview() {
             const teamsHtml = teams.map(team => {
-                const totalBudget = 75000;
+                const totalBudget = 100000;
                 const spent = totalBudget - team.budget;
                 const spentPercentage = ((spent / totalBudget) * 100).toFixed(1);
                 const remainingPercentage = ((team.budget / totalBudget) * 100).toFixed(1);
-                const remainingSlots = 15 - team.players.length; // Max 15 players per team
-                const maxByBudget = Math.floor(team.budget / 500); // Minimum base price is 500
-                const maxPlayersCanBuy = Math.min(remainingSlots, maxByBudget);
-                const isEligible = team.budget >= 500 && team.budget > 0;
 
                 return `
-                <div class="p-3 bg-white/5 rounded-lg ${!isEligible ? 'opacity-50' : ''}">
+                <div class="p-3 bg-white/5 rounded-lg">
                     <div class="flex justify-between items-center mb-2">
                         <div class="flex items-center">
                             <div class="w-3 h-3 ${team.color} rounded-full mr-3"></div>
                             <span class="font-medium">${team.name}</span>
-                            ${!isEligible ? '<span class="text-xs text-red-400 ml-2">(Ineligible)</span>' : ''}
                         </div>
                         <div class="text-right">
                             <div class="text-sm font-bold">₹${team.budget.toLocaleString()}</div>
                             <div class="text-xs text-gray-400">${team.players.length}/15 players</div>
-                            <div class="text-xs text-blue-400">Max: ${maxPlayersCanBuy} more</div>
                         </div>
                     </div>
                     <div class="text-xs text-gray-300">
@@ -1357,31 +1232,18 @@
 
         let filteredPlayers = [];
 
-        // Shuffle array function for random player selection
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
         function renderPlayerQueue() {
             const availablePlayers = players.filter(p => p.status === 'available');
-            // Randomize player order for auction
-            const randomizedPlayers = shuffleArray(availablePlayers);
-            filteredPlayers = randomizedPlayers; // Initialize filtered players
+            filteredPlayers = availablePlayers; // Initialize filtered players
 
-            const queueHtml = randomizedPlayers.map((player, index) => {
-                const actualIndex = availablePlayers.findIndex(p => p.id === player.id);
+            const queueHtml = availablePlayers.map((player, index) => {
+                const actualIndex = players.filter(p => p.status === 'available').findIndex(p => p.id === player.id);
                 return `
                 <div class="bg-white/5 rounded-lg p-4 border border-white/10 ${actualIndex === currentPlayerIndex ? 'ring-2 ring-yellow-400' : ''}" data-player-id="${player.id}">
                     <div class="flex items-start space-x-3 mb-3">
-                        <div class="text-3xl">
-                            ${player.photo && (player.photo.startsWith('data:') || player.photo.includes('/') || player.photo.includes('.')) ?
-                        `<img src="${player.photo}" alt="${player.name}" class="w-12 h-12 rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-                                 <span style="display:none;">👤</span>` :
+                        <div class="text-2xl">
+                            ${player.photo && player.photo.startsWith('data:') ?
+                        `<img src="${player.photo}" alt="${player.name}" class="w-8 h-8 rounded-full object-cover">` :
                         (player.photo || '👤')
                     }
                         </div>
@@ -1399,13 +1261,13 @@
                         </button>
                         <button onclick="startAuctionForPlayer(${player.id})" class="flex-1 text-xs bg-green-500 hover:bg-green-600 px-2 py-1 rounded transition-colors">
                             Start Auction
-                    </button>
-                </div>
+                        </button>
+                    </div>
                 </div>
             `}).join('');
 
             document.getElementById('playerQueue').innerHTML = queueHtml;
-            updateSearchResults(randomizedPlayers.length, randomizedPlayers.length);
+            updateSearchResults(availablePlayers.length, availablePlayers.length);
         }
 
         function filterPlayers() {
@@ -1437,9 +1299,8 @@
                 <div class="bg-white/5 rounded-lg p-4 border border-white/10 ${actualIndex === currentPlayerIndex ? 'ring-2 ring-yellow-400' : ''}" data-player-id="${player.id}">
                     <div class="flex items-start space-x-3 mb-3">
                         <div class="text-2xl">
-                            ${player.photo && (player.photo.startsWith('data:') || player.photo.includes('/') || player.photo.includes('.')) ?
-                        `<img src="${player.photo}" alt="${player.name}" class="w-8 h-8 rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-                                 <span style="display:none;">👤</span>` :
+                            ${player.photo && player.photo.startsWith('data:') ?
+                        `<img src="${player.photo}" alt="${player.name}" class="w-8 h-8 rounded-full object-cover">` :
                         (player.photo || '👤')
                     }
                         </div>
@@ -1544,28 +1405,19 @@
             renderAuction();
         }
 
-        function soldToSelectedTeam() {
+        const soldToSelectedTeam = debounce(async function () {
+            if (isProcessing) return;
+
             const teamId = parseInt(document.getElementById('biddingTeam').value);
             const bidAmount = parseInt(document.getElementById('bidAmount').value);
-            const availablePlayers = players.filter(p => p.status === 'available');
+            const currentPlayer = players.filter(p => p.status === 'available')[currentPlayerIndex];
 
             if (!teamId) {
                 alert('Please select a team');
                 return;
             }
 
-            if (currentPlayerIndex >= availablePlayers.length) {
-                alert('No player selected for auction');
-                return;
-            }
-
-            const currentPlayer = availablePlayers[currentPlayerIndex];
             const selectedTeam = teams.find(t => t.id === teamId);
-
-            if (!selectedTeam) {
-                alert('Selected team not found');
-                return;
-            }
 
             if (bidAmount > selectedTeam.budget) {
                 alert('Team has insufficient budget');
@@ -1577,83 +1429,119 @@
                 return;
             }
 
-            // Store player name for success message
-            const playerName = currentPlayer.name;
-            const teamName = selectedTeam.name;
+            // Show loading
+            showLoading(`Selling ${currentPlayer.name} to ${selectedTeam.name}...`);
 
-            // Sell player to selected team
-            selectedTeam.budget -= bidAmount;
-            selectedTeam.players.push({ ...currentPlayer, soldPrice: bidAmount });
-            currentPlayer.status = 'sold';
-            currentPlayer.soldTo = teamId;
-            currentPlayer.currentBid = bidAmount;
+            try {
+                // Sell player to selected team
+                selectedTeam.budget -= bidAmount;
+                selectedTeam.players.push({ ...currentPlayer, soldPrice: bidAmount });
+                currentPlayer.status = 'sold';
+                currentPlayer.soldTo = teamId;
+                currentPlayer.currentBid = bidAmount;
 
-            // Save to localStorage immediately
-            saveToLocalStorage();
+                // Save to localStorage first (fast)
+                saveToLocalStorage();
 
-            // Move to next player and update UI
-            nextPlayer();
+                // Update project JSON files (async)
+                await updateProjectJSONFiles();
 
-            // Show success message
-            const successMsg = document.createElement('div');
-            successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-            successMsg.textContent = `${playerName} sold to ${teamName} for ₹${bidAmount.toLocaleString()}!`;
-            document.body.appendChild(successMsg);
+                // Move to next player and update UI
+                nextPlayer();
 
-            setTimeout(() => {
-                if (successMsg.parentNode) {
-                    successMsg.parentNode.removeChild(successMsg);
-                }
-            }, 3000);
-        }
+                // Hide loading
+                hideLoading();
 
-        function unsoldPlayer(playerId = null) {
+                // Show success message briefly
+                const successMsg = document.createElement('div');
+                successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                successMsg.textContent = `${currentPlayer.name} sold to ${selectedTeam.name} for ₹${bidAmount.toLocaleString()}!`;
+                document.body.appendChild(successMsg);
+
+                setTimeout(() => {
+                    if (successMsg.parentNode) {
+                        successMsg.parentNode.removeChild(successMsg);
+                    }
+                }, 3000);
+
+            } catch (error) {
+                hideLoading();
+                console.error('Error selling player:', error);
+                alert('Error occurred while selling player. Please try again.');
+            }
+        }, 500);
+
+
+
+        const unsoldPlayer = debounce(async function (playerId = null) {
+            if (isProcessing) return;
+
             if (playerId) {
                 // Unsold from player management dashboard
                 const player = players.find(p => p.id === playerId);
                 if (player && player.status === 'sold') {
-                    // Find the team that bought this player
-                    const team = teams.find(t => t.id === player.soldTo);
-                    if (team) {
-                        // Remove player from team and refund budget
-                        team.players = team.players.filter(p => p.id !== playerId);
-                        team.budget += player.currentBid;
-                    }
+                    showLoading(`Making ${player.name} available for auction...`);
 
-                    // Reset player status
-                    player.status = 'available';
-                    player.soldTo = null;
-                    player.currentBid = 0;
-
-                    // Save to localStorage
-                    saveToLocalStorage();
-
-                    // Update UI
-                    renderAll();
-
-                    // Show success message
-                    const successMsg = document.createElement('div');
-                    successMsg.className = 'fixed top-4 right-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-                    successMsg.textContent = `${player.name} is now available for auction again!`;
-                    document.body.appendChild(successMsg);
-
-                    setTimeout(() => {
-                        if (successMsg.parentNode) {
-                            successMsg.parentNode.removeChild(successMsg);
+                    try {
+                        // Find the team that bought this player
+                        const team = teams.find(t => t.id === player.soldTo);
+                        if (team) {
+                            // Remove player from team and refund budget
+                            team.players = team.players.filter(p => p.id !== playerId);
+                            team.budget += player.currentBid;
                         }
-                    }, 3000);
+
+                        // Reset player status
+                        player.status = 'available';
+                        player.soldTo = null;
+                        player.currentBid = 0;
+
+                        // Save to localStorage first (fast)
+                        saveToLocalStorage();
+
+                        // Update project JSON files (async)
+                        await updateProjectJSONFiles();
+
+                        // Update UI
+                        renderAll();
+
+                        hideLoading();
+
+                        // Show success message
+                        const successMsg = document.createElement('div');
+                        successMsg.className = 'fixed top-4 right-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                        successMsg.textContent = `${player.name} is now available for auction again!`;
+                        document.body.appendChild(successMsg);
+
+                        setTimeout(() => {
+                            if (successMsg.parentNode) {
+                                successMsg.parentNode.removeChild(successMsg);
+                            }
+                        }, 3000);
+
+                    } catch (error) {
+                        hideLoading();
+                        console.error('Error unselling player:', error);
+                        alert('Error occurred while making player available. Please try again.');
+                    }
                 }
             } else {
                 // Unsold from auction (current player)
-                const availablePlayers = players.filter(p => p.status === 'available');
-                if (currentPlayerIndex < availablePlayers.length) {
-                    const currentPlayer = availablePlayers[currentPlayerIndex];
+                const currentPlayer = players.filter(p => p.status === 'available')[currentPlayerIndex];
+                showLoading(`Marking ${currentPlayer.name} as unsold...`);
+
+                try {
                     currentPlayer.status = 'unsold';
                     saveToLocalStorage();
+                    await updateProjectJSONFiles();
                     nextPlayer();
+                    hideLoading();
+                } catch (error) {
+                    hideLoading();
+                    console.error('Error marking player as unsold:', error);
                 }
             }
-        }
+        }, 300);
 
         function nextPlayer() {
             currentPlayerIndex++;
@@ -1701,8 +1589,8 @@
                                 Edit
                             </button>
                             <button onclick="removePlayer(${player.id})" class="text-xs bg-red-500 hover:bg-red-600 px-2 py-1 rounded">
-                            Remove
-                        </button>
+                                Remove
+                            </button>
                         </div>
                     `}
                 </div>
@@ -1722,7 +1610,7 @@
             document.getElementById('playerExperience').value = '';
             document.getElementById('playerBattingStyle').value = '';
             document.getElementById('playerBowlingStyle').value = '';
-            document.getElementById('basePrice').value = '500';
+            document.getElementById('basePrice').value = '5000';
             document.getElementById('playerPhoto').value = '';
             document.getElementById('playerPhotoFile').value = '';
 
@@ -1732,9 +1620,13 @@
             });
         }
 
-        function addPlayer() {
+        const addPlayer = debounce(async function () {
+            if (isProcessing) return;
+
             const name = document.getElementById('playerName').value;
             const role = document.getElementById('playerRole').value;
+            const age = parseInt(document.getElementById('playerAge').value);
+            const experience = document.getElementById('playerExperience').value;
             const battingStyle = document.getElementById('playerBattingStyle').value;
             const bowlingStyle = document.getElementById('playerBowlingStyle').value;
             const basePrice = parseInt(document.getElementById('basePrice').value);
@@ -1754,16 +1646,20 @@
                 return;
             }
 
+            showLoading(`Adding ${name} to player list...`);
+
             try {
                 // Handle photo upload
                 let photo = photoText || '👤';
                 if (photoFile) {
                     const reader = new FileReader();
-                    reader.onload = function (e) {
+                    reader.onload = async function (e) {
                         const newPlayer = {
                             id: Date.now(),
                             name,
                             role,
+                            age: age || null,
+                            experience: experience || null,
                             battingStyle: battingStyle || null,
                             bowlingStyle: bowlingStyle || null,
                             pclSeasons: pclSeasons,
@@ -1776,8 +1672,10 @@
 
                         players.push(newPlayer);
                         saveToLocalStorage();
+                        await updateProjectJSONFiles();
                         closeAddPlayerModal();
                         renderPlayers();
+                        hideLoading();
 
                         // Show success message
                         const successMsg = document.createElement('div');
@@ -1797,6 +1695,8 @@
                         id: Date.now(),
                         name,
                         role,
+                        age: age || null,
+                        experience: experience || null,
                         battingStyle: battingStyle || null,
                         bowlingStyle: bowlingStyle || null,
                         pclSeasons: pclSeasons,
@@ -1809,8 +1709,10 @@
 
                     players.push(newPlayer);
                     saveToLocalStorage();
+                    await updateProjectJSONFiles();
                     closeAddPlayerModal();
                     renderPlayers();
+                    hideLoading();
 
                     // Show success message
                     const successMsg = document.createElement('div');
@@ -1825,10 +1727,11 @@
                     }, 3000);
                 }
             } catch (error) {
+                hideLoading();
                 console.error('Error adding player:', error);
                 alert('Error occurred while adding player. Please try again.');
             }
-        }
+        }, 500);
 
         function removePlayer(playerId) {
             players = players.filter(p => p.id !== playerId);
@@ -1837,94 +1740,30 @@
 
         // Team dashboard
         function renderTeams() {
-            const teamsHtml = teams.map(team => {
-                const totalBudget = 75000;
-                const spent = totalBudget - team.budget;
-                const spentPercentage = ((spent / totalBudget) * 100).toFixed(1);
-                const remainingSlots = 15 - team.players.length; // Max 15 players per team
-                const maxByBudget = Math.floor(team.budget / 500); // Minimum base price is 500
-                const maxPlayersCanBuy = Math.min(remainingSlots, maxByBudget);
-                const isEligible = team.budget >= 500 && team.budget > 0;
-
-                // Group players by role
-                const playersByRole = {
-                    'Batsman': team.players.filter(p => p.role === 'Batsman'),
-                    'Bowler': team.players.filter(p => p.role === 'Bowler'),
-                    'All-rounder': team.players.filter(p => p.role === 'All-rounder'),
-                    'Wicket-keeper': team.players.filter(p => p.role === 'Wicket-keeper')
-                };
-
-                return `
-                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 ${!isEligible ? 'opacity-75 border-red-500/30' : ''}">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center">
+            const teamsHtml = teams.map(team => `
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+                    <div class="flex items-center mb-4">
                         <div class="w-4 h-4 ${team.color} rounded-full mr-3"></div>
                         <h3 class="text-xl font-bold">${team.name}</h3>
-                            ${!isEligible ? '<span class="text-xs text-red-400 ml-2 px-2 py-1 bg-red-500/20 rounded">Ineligible</span>' : ''}
-                        </div>
-                        <div class="text-right text-sm">
-                            <div class="text-yellow-400 font-bold">₹${team.budget.toLocaleString()}</div>
-                            <div class="text-gray-400">remaining</div>
-                        </div>
                     </div>
                     
-                    <div class="mb-4 p-3 bg-white/5 rounded-lg">
-                        <div class="grid grid-cols-2 gap-4 text-sm">
-                            <div>
-                                <span class="text-gray-400">Players:</span>
-                                <span class="font-bold ml-2">${team.players.length}/15</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-400">Can buy:</span>
-                                <span class="font-bold ml-2 text-blue-400">${maxPlayersCanBuy} more</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-400">Spent:</span>
-                                <span class="font-bold ml-2 text-red-400">₹${spent.toLocaleString()}</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-400">Used:</span>
-                                <span class="font-bold ml-2">${spentPercentage}%</span>
-                            </div>
-                        </div>
-                        <div class="w-full bg-gray-700 rounded-full h-2 mt-3">
-                            <div class="${team.color} h-2 rounded-full transition-all duration-500" style="width: ${spentPercentage}%"></div>
-                        </div>
+                    <div class="mb-4">
+                        <p class="text-sm text-gray-300">Budget Remaining: ₹${team.budget.toLocaleString()}</p>
+                        <p class="text-sm text-gray-300">Players: ${team.players.length}/15</p>
+                        <p class="text-sm text-gray-300">Total Spent: ₹${team.players.reduce((sum, p) => sum + (p.soldPrice || 0), 0).toLocaleString()}</p>
                     </div>
                     
-                    <div class="space-y-3">
-                        ${Object.entries(playersByRole).map(([role, rolePlayers]) => {
-                    if (rolePlayers.length === 0) return '';
-                    return `
-                            <div>
-                                <h5 class="text-sm font-medium text-yellow-400 mb-2">${role}s (${rolePlayers.length})</h5>
-                                <div class="space-y-1">
-                                    ${rolePlayers.map(player => `
-                                        <div class="flex items-center justify-between text-sm bg-white/5 rounded p-2">
-                                            <div class="flex items-center space-x-2">
-                                                <div class="text-lg">
-                                                    ${player.photo && (player.photo.startsWith('data:') || player.photo.includes('/') || player.photo.includes('.')) ?
-                            `<img src="${player.photo}" alt="${player.name || 'Player'}" class="w-6 h-6 rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-                                                         <span style="display:none;">${player.photo && !player.photo.includes('/') && !player.photo.includes('.') ? player.photo : '👤'}</span>` :
-                            `<span>${player.photo || '👤'}</span>`
-                        }
+                    <div class="space-y-2">
+                        <h4 class="font-medium text-yellow-400">Squad:</h4>
+                        ${team.players.length > 0 ? team.players.map(player => `
+                            <div class="flex justify-between text-sm bg-white/5 rounded p-2">
+                                <span>${player.name} (${player.role})</span>
+                                <span class="text-green-400">₹${player.soldPrice.toLocaleString()}</span>
                             </div>
-                                                <span class="font-medium">${player.name || 'Unknown Player'}</span>
-                                                ${player.age ? `<span class="text-xs text-gray-400">(${player.age}y)</span>` : ''}
-                    </div>
-                                            <span class="text-green-400 font-bold">₹${(player.soldPrice || player.currentBid || 0).toLocaleString()}</span>
-                </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        `}).filter(Boolean).join('')}
-                        
-                        ${team.players.length === 0 ? '<div class="text-center py-8 text-gray-400"><div class="text-4xl mb-2">🏏</div><p>No players yet</p></div>' : ''}
-                        
-                        ${team.players.length === 0 ? '<div class="text-center py-8 text-gray-400"><div class="text-4xl mb-2">🏏</div><p>No players yet</p></div>' : ''}
+                        `).join('') : '<p class="text-gray-400 text-sm">No players yet</p>'}
                     </div>
                 </div>
-            `}).join('');
+            `).join('');
 
             document.getElementById('teamsGrid').innerHTML = teamsHtml;
         }
@@ -1964,7 +1803,7 @@
 
                 teams.forEach(team => {
                     team.players = [];
-                    team.budget = 75000;
+                    team.budget = 100000;
                 });
 
                 currentPlayerIndex = 0;
@@ -2062,8 +1901,8 @@
             });
         }
 
-        function savePlayerEdit() {
-            if (!currentEditingPlayerId) return;
+        const savePlayerEdit = debounce(async function () {
+            if (isProcessing || !currentEditingPlayerId) return;
 
             const player = players.find(p => p.id === currentEditingPlayerId);
             if (!player) return;
@@ -2091,11 +1930,13 @@
                 return;
             }
 
+            showLoading(`Updating ${name}'s details...`);
+
             try {
                 // Handle photo upload
                 if (photoFile) {
                     const reader = new FileReader();
-                    reader.onload = function (e) {
+                    reader.onload = async function (e) {
                         // Update player data
                         player.name = name;
                         player.role = role;
@@ -2118,11 +1959,13 @@
                             }
                         }
 
-                        // Save to localStorage
+                        // Save to localStorage and update files
                         saveToLocalStorage();
+                        await updateProjectJSONFiles();
 
                         closeEditPlayerModal();
                         renderAll();
+                        hideLoading();
 
                         // Show success message
                         const successMsg = document.createElement('div');
@@ -2164,11 +2007,13 @@
                         }
                     }
 
-                    // Save to localStorage
+                    // Save to localStorage and update files
                     saveToLocalStorage();
+                    await updateProjectJSONFiles();
 
                     closeEditPlayerModal();
                     renderAll();
+                    hideLoading();
 
                     // Show success message
                     const successMsg = document.createElement('div');
@@ -2183,53 +2028,34 @@
                     }, 3000);
                 }
             } catch (error) {
+                hideLoading();
                 console.error('Error updating player:', error);
                 alert('Error occurred while updating player. Please try again.');
             }
-        }
+        }, 500);
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function () {
-            // Check for viewer mode first
-            if (checkViewerMode()) {
-                // Load saved data for viewer
-                const dataLoaded = loadFromLocalStorage();
-
-                // If no data loaded, use defaults
-                if (!dataLoaded || teams.length === 0) {
-                    teams = [...defaultTeams];
-                }
-                if (!dataLoaded || players.length === 0) {
-                    players = [...defaultPlayers];
-                }
-
-                console.log('Viewer mode initialized with:', teams.length, 'teams and', players.length, 'players');
-                renderTeams();
-                return;
-            }
-
-            // Normal admin mode initialization
-            const dataLoaded = loadFromLocalStorage();
+            // Load saved data on startup
+            loadFromLocalStorage();
 
             // If no data loaded, use defaults
-            if (!dataLoaded || teams.length === 0) {
+            if (teams.length === 0) {
                 teams = [...defaultTeams];
             }
-            if (!dataLoaded || players.length === 0) {
+            if (players.length === 0) {
                 players = [...defaultPlayers];
             }
             if (users.length === 0) {
                 users = [...defaultUsers];
             }
 
-            console.log('Admin mode initialized with:', teams.length, 'teams and', players.length, 'players');
-
             // Set default login for demo
             document.getElementById('username').value = 'admin';
             document.getElementById('password').value = 'admin123';
         });
     </script>
-    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9768516ff7559a99',t:'MTc1NjQzMTM5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'97532aefe6269373',t:'MTc1NjIwOTYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
 </body>
 
 </html>

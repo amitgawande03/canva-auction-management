@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "MI Paltan",
-    "budget": 125000,
+    "budget": 75000,
     "color": "bg-blue-600",
     "owner": "Owner 1",
     "players": []
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "name": "Sunrisers",
-    "budget": 125000,
+    "budget": 75000,
     "color": "bg-red-600",
     "owner": "Owner 2",
     "players": []
@@ -18,7 +18,7 @@
   {
     "id": 3,
     "name": "Kight Riders",
-    "budget": 125000,
+    "budget": 75000,
     "color": "bg-purple-600",
     "owner": "Owner 3",
     "players": []
@@ -26,7 +26,7 @@
   {
     "id": 4,
     "name": "Kings",
-    "budget": 125000,
+    "budget": 75000,
     "color": "bg-red-600",
     "owner": "Owner 4",
     "players": []
@@ -34,7 +34,7 @@
   {
     "id": 5,
     "name": "Titans",
-    "budget": 125000,
+    "budget": 75000,
     "color": "bg-blue-600",
     "owner": "Owner 5",
     "players": []
@@ -42,7 +42,7 @@
   {
     "id": 6,
     "name": "Royal Challengers",
-    "budget": 125000,
+    "budget": 75000,
     "color": "bg-red-800",
     "owner": "Owner 6",
     "players": []
