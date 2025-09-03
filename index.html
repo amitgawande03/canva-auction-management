@@ -1069,7 +1069,7 @@
                 return;
             }
 
-            if (username === 'admin' && password === 'admin123') {
+            if (username === 'admin' && password === 'sandy123') {
                 currentUser = username;
                 currentRole = 'admin';
                 document.getElementById('loginScreen').classList.add('hidden');
@@ -1283,7 +1283,7 @@
                             <div>
                                 <label class="block text-sm font-medium mb-2">Bid Amount</label>
                                 <div class="flex items-center space-x-2">
-                                    <input type="number" id="bidAmount" value="${Math.max(currentPlayer.currentBid + 1000, currentPlayer.basePrice)}" 
+                                    <input type="number" id="bidAmount" value="${Math.max(currentPlayer.currentBid, currentPlayer.basePrice)}" 
                                            class="flex-1 px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white" step="1000" min="${currentPlayer.basePrice}">
                                     <button onclick="increaseBid()" class="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg transition-colors text-white font-bold">
                                         +1000
